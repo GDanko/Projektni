@@ -129,9 +129,7 @@
     <ClCompile Include="mainMenu.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DATATYPE_H.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="weapons.h" />
     <ClInclude Include="functions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

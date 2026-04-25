@@ -32,7 +32,7 @@
     <ClInclude Include="functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DATATYPE_H.h">
+    <ClInclude Include="weapons.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

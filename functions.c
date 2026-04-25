@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdlib.h>
 #include <string.h>
-#include "DATATYPE_H.h"
+#include "weapons.h"
 #include "functions.h"
 
 extern int numOfWeapons;
