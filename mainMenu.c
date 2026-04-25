@@ -40,13 +40,17 @@ int mainMenu() {
  
       case SKLADISTE:
           while (condition) {
-              condition = 2;
+              printf("\nwork in progress\n");
+              pause();
+              break;
           }
           break;
 
       case ISPORUKA:
           while (condition) {
-              condition = 3;
+              printf("\nwork in progress\n");
+              pause();
+              break;
           }
           break;
 
@@ -60,4 +64,5 @@ int mainMenu() {
           break;
     }
     return 1;
+
 }

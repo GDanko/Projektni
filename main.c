@@ -1,6 +1,5 @@
 #include "functions.h"
 
-
 int main(void) {
 
 	unsigned short condition = 1;

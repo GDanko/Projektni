@@ -1,7 +1,7 @@
 #include "stdio.h"
 
-#ifndef functions
-#define functions
+#ifndef FUNCTIONS_H
+#define FUNCTIONS_H
 
 #ifdef _WIN32
 	#define CLEAR_CONSOLE() system("cls")
@@ -22,6 +22,8 @@ int factoryMenu();
 /*
 * 
 */
+void pause();
+void clearBuffer();
 void defineStandard();
 void configureEngine();
 void sendToStorage();
