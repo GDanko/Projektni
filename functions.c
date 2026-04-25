@@ -8,14 +8,14 @@
 extern int numOfWeapons;
 int nextID;
 
-void defineStandard(WEAPON* w) {
+void defineStandard(WEAPON* const weapon) {
 
     unsigned short choice;
-    int valid = 0;
+    unsigned short valid = 0;
 
     do {
         CLEAR_CONSOLE();
-
+        
         printf("============================================================\n");
         printf("                  ODABERITE STANDARD\n");
         printf("============================================================\n\n");
@@ -36,17 +36,17 @@ void defineStandard(WEAPON* w) {
 
         switch (choice) {
         case 1:
-            strcpy(w->standard, "NATO A1");
+            strcpy(weapon->standard, "NATO A1");
             valid = 1;
             break;
 
         case 2:
-            strcpy(w->standard, "NATO A2");
+            strcpy(weapon->standard, "NATO A2");
             valid = 1;
             break;
 
         case 3:
-            strcpy(w->standard, "NATO A3");
+            strcpy(weapon->standard, "NATO A3");
             valid = 1;
             break;
 
@@ -57,7 +57,7 @@ void defineStandard(WEAPON* w) {
         }
     } while (!valid);
 
-    printf("\nStandard uspjesno postavljen na: %s\n", w->standard);
+    printf("\nStandard uspjesno postavljen na: %s\n", weapon->standard);
 }
 
 

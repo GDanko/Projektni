@@ -1,4 +1,5 @@
 #include "stdio.h"
+#include "weapons.h"
 
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
@@ -32,7 +33,7 @@ void clearBuffer();
 /*
 * Menu za izbor standarda oruzja.
 */
-void defineStandard();
+void defineStandard(WEAPON* const);
 
 /*
 * Menu za odredjivanje tipa i mase pogona oruzja.

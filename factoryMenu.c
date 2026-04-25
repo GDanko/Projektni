@@ -14,18 +14,21 @@ typedef enum {
     RETURN
 }factoryMenuOptions;
 
-WEAPON tempWeapon;
+
 
 int factoryMenu() {
     
     CLEAR_CONSOLE();
+
+    static char setColor[16] = "\033[0m";
+    static WEAPON tempWeapon;
   
     printf("============================================================\n");
     printf("          POGON ZA SASTAVLJANJE NAORUZANJA\n");
     printf("============================================================\n\n");
 
-    printf("[1] DEFINIRANJE STANDARDA \t\t %s\n", tempWeapon.standard);
-    printf("[2] ODABIR POGONSKOG SUSTAVA\n");
+    printf("[1] DEFINIRANJE STANDARDA \t\t %s %s \033[0m\n", setColor, tempWeapon.standard);
+    printf("[2] ODABIR POGONSKOG SUSTAVA \t\t %s \033[0m\n", tempWeapon.engine.type);
     printf("[3] KONFIGURACIJA BOJEVE GLAVE\n");
     printf("[4] INSTALACIJA SUSTAVA NAVODJENJA\n\n");
     
@@ -37,6 +40,7 @@ int factoryMenu() {
     printf("============================================================\n");
     printf("Odaberite korak proizvodnje: ");
 
+    
     unsigned short option;
     scanf("%hu", &option);
     getchar();
@@ -44,7 +48,9 @@ int factoryMenu() {
     switch (option) {
 
     case DEFINE_STANDARD:
+        strcpy(setColor, "\033[37;42m");
         defineStandard(&tempWeapon);
+        
         pause();
         break;
 
@@ -70,6 +76,9 @@ int factoryMenu() {
 
     case RESTART:
         memset(&tempWeapon, 0, sizeof(WEAPON));
+        printf("\nZbog ostecenja, oruzje je poslano na popravak.\n");
+        strcpy(setColor, "\033[0m");
+        pause();
         break;
 
     case RETURN:
