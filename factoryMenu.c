@@ -77,6 +77,7 @@ int factoryMenu() {
         
     default:
         printf("\nNepoznata opcija. Pokusajte ponovno.\n");
+        clearBuffer();
         pause();
         break;
     }

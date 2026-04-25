@@ -3,14 +3,14 @@
 
 typedef struct {
 
-    char type[10];
+    char type[20];
     float mass;
 
 } ENGINE;
 
 typedef struct {
 
-    char type[10];
+    char type[20];
     float mass;
 
 } EXPLOSIVE;
@@ -18,7 +18,7 @@ typedef struct {
 typedef struct {
 
     int id;
-    char standard[20];
+    char standard[10];
     char name[20];
     ENGINE engine;
     EXPLOSIVE explosive;

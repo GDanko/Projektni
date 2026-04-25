@@ -132,6 +132,12 @@
     <ClInclude Include="weapons.h" />
     <ClInclude Include="functions.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="storage.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="koncepti.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

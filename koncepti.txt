@@ -1,0 +1,42 @@
+Obavezni koncepti
+
+1. Minimum koji studenti MORAJU imati je implementirani CRUID.
+ Create-Read-Update-InsertDelete i tu se misli na kontekst sadržaja koji se zapisuje u datoteku koja može biti tekstualna ili
+binarna. Dalje samo nadograđujete svoj program!
+
+2. Odabir konkretnih primitivnih tipova podataka za rad s cjelobrojnim i realnim konstantama.
+3. Odabir konkretnih složenih tipova podataka za rad sa specifičnim objektima.
+4. Primjena typedef sa strukturama i unijama, po potrebi s enum tipovima podataka tamo gdje
+treba.
+5. Imenovanje identifikatora (varijabli, konstanti, polja, funkcija, pokazivača…) – upotreba
+camelCase, PascalCase i snake_case konzistento kroz cijeli projekt.
+6. Primjena ključne riječi static za globalne i lokalne varijable.
+7. Organizacija izvornog kôda.
+8. Primjena extern ključne riječi za globalne varijable.
+9. Ako su funkcije jednostavne koristiti makro funkcije ili inline funkcije.
+10. Izbornik/podizbornici.
+11. Kod izbornika koristiti enum tipove ili makro simbole.
+12. Generalno upotreba pokazivača tamo gdje su potrebni.
+13. Generalno upotreba struktura i funkcija.
+14. Zaštita parametara kod svih funkcija.
+15. Koristiti statički zauzeta polja gdje su potrebna, nikako ne koristiti VLA polja.
+16. Koristiti dinamičko zauzimanje memorije za bilo koji tip podatka, osobito za složene tipove
+podataka.
+17. Koristiti funkcije malloc(), calloc(), realloc(), free() – neku od njih, ako ne i sve.
+18. Sigurno brisanje memorije koja je dinamički zauzeta, anuliranje memorijskog prostora, provjera
+pokazivača kako se ne bi dogodila pogreška double free() i anuliranje svih pokazivača koji su bili
+usmjereni na memorijski prostor koji se dinamički zauzeo.
+19. Datoteke, koristiti tekstualnu ili binarnu, provjera pokazivača i zatvaranje datoteke.
+20. Koristiti funkcije fseek(), ftell(), rewind(), ovisno o potrebi – neku od njih ako ne sve.
+21. Koristiti funkcije remove(), rename(), po potrebi implementirati funkciju za kopiranje datoteka.
+22. Upravljati s pogreškama, errno, perror(), strerror(), feof(), ferror() – neku od njih ako ne sve.
+23. Sortiranje – preporuka koristiti ugrađenu qsort() funkciju, inače se može koristiti bilo koja
+funkcija sortiranja.
+24. Pretraživanje – preporuka koristiti ugrađenu bsearch() funkciju, inače se može koristiti bilo koja
+funkcija pretraživanja.
+25. Rekurzije je najlakše koristiti primjenom rekurzivnih algoritama sortiranja kao što su quick sort,
+merge sort, insert sort ili pretraživanja kao što je binary search.
+26. Pokazivače na funkcije je najlakše koristiti upotrebom funkcije qsort() ili bsearch() iz standardne
+biblioteke.
+
+

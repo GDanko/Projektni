@@ -20,12 +20,28 @@ int mainMenu();
 int factoryMenu();
 
 /*
-* 
+* Pauzira program i ceka potvrdu za nastavak.
 */
 void pause();
+
+/*
+* Cisti svaki znak u bufferu.
+*/
 void clearBuffer();
+
+/*
+* Menu za izbor standarda oruzja.
+*/
 void defineStandard();
+
+/*
+* Menu za odredjivanje tipa i mase pogona oruzja.
+*/
 void configureEngine();
+
+/*
+* Funkcija za spremanje konstruiranog oruzja u datoteku.
+*/
 void sendToStorage();
 
 #endif

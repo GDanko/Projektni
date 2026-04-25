@@ -6,10 +6,11 @@
 #include <conio.h>
 
 extern int numOfWeapons;
+int nextID;
 
 void defineStandard(WEAPON* w) {
 
-    int choice;
+    unsigned short choice;
     int valid = 0;
 
     do {
@@ -18,18 +19,20 @@ void defineStandard(WEAPON* w) {
         printf("============================================================\n");
         printf("                  ODABERITE STANDARD\n");
         printf("============================================================\n\n");
+
         printf("[1] NATO A1\n");
         printf("[2] NATO A2\n");
         printf("[3] NATO A3\n\n");
         printf("============================================================\n");
         printf("Izbor: ");
 
-        if (scanf("%d", &choice) != 1) {
+        if (scanf("%hu", &choice) != 1) {
             printf("Krivi unos, unesite broj.\n");
             clearBuffer();
             pause();
             continue;
         }
+        clearBuffer();
 
         switch (choice) {
         case 1:
@@ -50,10 +53,8 @@ void defineStandard(WEAPON* w) {
         default:
             printf("\nNepoznata opcija. Pokusajte ponovno.\n");
             pause();
-
             break;
         }
-
     } while (!valid);
 
     printf("\nStandard uspjesno postavljen na: %s\n", w->standard);

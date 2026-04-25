@@ -28,7 +28,7 @@ int mainMenu() {
     unsigned short option;
     unsigned short condition = 1;
     scanf("%hu", &option);
-    getchar();
+    clearBuffer();
 
     switch (option) {
 
@@ -61,6 +61,7 @@ int mainMenu() {
 
       default:
           printf("\nNepoznata opcija. Pokusajte ponovno.\n");
+          pause();
           break;
     }
     return 1;
