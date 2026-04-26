@@ -3,7 +3,7 @@
 
 typedef struct {
 
-    char type[20];
+    char type[30];
     float mass;
 
 } ENGINE;

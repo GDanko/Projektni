@@ -7,7 +7,7 @@ typedef enum {
     SKLADISTE,
     ISPORUKA,
     IZLAZ = 0
-}mainMenuOptions;
+}MAIN_MENU;
 
 int mainMenu() {
 

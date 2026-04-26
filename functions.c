@@ -4,71 +4,29 @@
 #include "weapons.h"
 #include "functions.h"
 #include <conio.h>
+#include "colors.h"
 
 extern int numOfWeapons;
 int nextID;
 
-void defineStandard(WEAPON* const weapon) {
-
-    unsigned short choice;
-    unsigned short valid = 0;
-
-    do {
-        CLEAR_CONSOLE();
-        
-        printf("============================================================\n");
-        printf("                  ODABERITE STANDARD\n");
-        printf("============================================================\n\n");
-
-        printf("[1] NATO A1\n");
-        printf("[2] NATO A2\n");
-        printf("[3] NATO A3\n\n");
-        printf("============================================================\n");
-        printf("Izbor: ");
-
-        if (scanf("%hu", &choice) != 1) {
-            printf("Krivi unos, unesite broj.\n");
-            clearBuffer();
-            pause();
-            continue;
-        }
-        clearBuffer();
-
-        switch (choice) {
-        case 1:
-            strcpy(weapon->standard, "NATO A1");
-            valid = 1;
-            break;
-
-        case 2:
-            strcpy(weapon->standard, "NATO A2");
-            valid = 1;
-            break;
-
-        case 3:
-            strcpy(weapon->standard, "NATO A3");
-            valid = 1;
-            break;
-
-        default:
-            printf("\nNepoznata opcija. Pokusajte ponovno.\n");
-            pause();
-            break;
-        }
-    } while (!valid);
-
-    printf("\nStandard uspjesno postavljen na: %s\n", weapon->standard);
+const char* setColor(const COLOR color) {
+    static const char* colorCodes[] = {
+        "\033[0m",      
+        "\033[1;31m",   
+        "\033[1;32m"   
+    };
+    if (color < 0 || color >= sizeof(colorCodes) / sizeof(colorCodes[0])) {
+        return colorCodes[0];
+    }
+    return colorCodes[color];
 }
 
-
-
-void configureEngine() {
-
-
-
+const char* checkColor(const char* str) {
+    if (str == '\0') {
+        return setColor(RED);
+    }
+    return setColor(GREEN);
 }
-
-
 
 void sendToStorage() {
 
@@ -76,16 +34,12 @@ void sendToStorage() {
 
 }
 
-
-
 void pause() {
 
-    printf("\033[37;41m Pritisnite bilo koju tipku za nastavak...\033[0m\n");
+    printf("%sPritisnite bilo koju tipku za nastavak...%s\n", setColor(RED), setColor(CLEAR));
     _getch();
 
 }
-
-
 
 void clearBuffer() {
 

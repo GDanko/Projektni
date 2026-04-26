@@ -3,6 +3,7 @@
 #include "functions.h"
 #include "weapons.h"
 #include <string.h>
+#include "colors.h"
 
 typedef enum {
     DEFINE_STANDARD = 1,
@@ -12,25 +13,35 @@ typedef enum {
     STORE,
     RESTART,
     RETURN
-}factoryMenuOptions;
-
+}MENU_OPTIONS;
 
 
 int factoryMenu() {
     
     CLEAR_CONSOLE();
 
-    static char setColor[16] = "\033[0m";
     static WEAPON tempWeapon;
   
     printf("============================================================\n");
     printf("          POGON ZA SASTAVLJANJE NAORUZANJA\n");
     printf("============================================================\n\n");
 
-    printf("[1] DEFINIRANJE STANDARDA \t\t %s %s \033[0m\n", setColor, tempWeapon.standard);
-    printf("[2] ODABIR POGONSKOG SUSTAVA \t\t %s \033[0m\n", tempWeapon.engine.type);
-    printf("[3] KONFIGURACIJA BOJEVE GLAVE\n");
-    printf("[4] INSTALACIJA SUSTAVA NAVODJENJA\n\n");
+    printf("[1] DEFINIRANJE STANDARDA \t\t %s %s \033[0m\n",
+        checkColor(tempWeapon.standard),
+        tempWeapon.standard[0] == '\0' ? "NIJE DEFINIRANO" : tempWeapon.standard);
+
+    printf("[2] ODABIR POGONSKOG SUSTAVA \t\t %s %s \033[0m\n",
+        checkColor(tempWeapon.engine.type),
+        tempWeapon.engine.type[0] == '\0' ? "NIJE DEFINIRANO" : tempWeapon.engine.type);
+
+    printf("[3] KONFIGURACIJA BOJEVE GLAVE \t\t %s %s \033[0m\n",
+        checkColor(tempWeapon.explosive.type),
+        tempWeapon.explosive.type[0] == '\0' ? "NIJE DEFINIRANO" : tempWeapon.explosive.type);
+        
+    printf("[4] INSTALACIJA SUSTAVA NAVODJENJA \t %s %s \033[0m\n\n",
+        checkColor(tempWeapon.guidanceType),
+        tempWeapon.guidanceType[0] == '\0' ? "NIJE DEFINIRANO" : tempWeapon.guidanceType);
+
     
     printf("[5] POSALJI U SKLADISTE\n");
     printf("[6] RESTART\n\n");
@@ -48,14 +59,12 @@ int factoryMenu() {
     switch (option) {
 
     case DEFINE_STANDARD:
-        strcpy(setColor, "\033[37;42m");
         defineStandard(&tempWeapon);
-        
         pause();
         break;
 
     case CONFIGURE_ENGINE:
-        printf("\nwork in progress\n");
+        configureEngine(&tempWeapon);
         pause();
         break;
 
@@ -77,7 +86,6 @@ int factoryMenu() {
     case RESTART:
         memset(&tempWeapon, 0, sizeof(WEAPON));
         printf("\nZbog ostecenja, oruzje je poslano na popravak.\n");
-        strcpy(setColor, "\033[0m");
         pause();
         break;
 

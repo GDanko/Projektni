@@ -127,8 +127,10 @@
     <ClCompile Include="functions.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="mainMenu.c" />
+    <ClCompile Include="subMenuFunctions.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="colors.h" />
     <ClInclude Include="weapons.h" />
     <ClInclude Include="functions.h" />
   </ItemGroup>

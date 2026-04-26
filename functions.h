@@ -1,5 +1,6 @@
 #include "stdio.h"
 #include "weapons.h"
+#include "colors.h"
 
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
@@ -38,11 +39,21 @@ void defineStandard(WEAPON* const);
 /*
 * Menu za odredjivanje tipa i mase pogona oruzja.
 */
-void configureEngine();
+void configureEngine(WEAPON* const);
 
 /*
 * Funkcija za spremanje konstruiranog oruzja u datoteku.
 */
 void sendToStorage();
+
+/*
+* Vraca boju kao string 
+*/
+const char* setColor(const COLOR);
+
+/*
+* Provjerava da li je string prazan i prema tome odredjuje boju
+*/
+const char* checkColor(const char*);
 
 #endif
