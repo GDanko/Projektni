@@ -22,7 +22,7 @@ const char* setColor(const COLOR color) {
 }
 
 const char* checkColor(const char* str) {
-    if (str == '\0') {
+    if (str[0] == '\0') {
         return setColor(RED);
     }
     return setColor(GREEN);

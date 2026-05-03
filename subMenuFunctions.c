@@ -6,6 +6,14 @@
 #include <conio.h>
 #include "colors.h"
 
+typedef enum {
+
+    A1 = 1,
+    A2,
+    A3,
+
+}STANDARD_TYPE;
+
 void defineStandard(WEAPON* const weapon) {
 
     if (weapon->engine.type[0] != '\0')
@@ -39,17 +47,18 @@ void defineStandard(WEAPON* const weapon) {
         clearBuffer();
 
         switch (choice) {
-        case 1:
+
+        case A1:
             strcpy(weapon->standard, "NATO A1");
             valid = 1;
             break;
 
-        case 2:
+        case A2:
             strcpy(weapon->standard, "NATO A2");
             valid = 1;
             break;
 
-        case 3:
+        case A3:
             strcpy(weapon->standard, "NATO A3");
             valid = 1;
             break;
@@ -64,9 +73,24 @@ void defineStandard(WEAPON* const weapon) {
     printf("\nStandard uspjesno postavljen na: %s\n", weapon->standard);
 }
 
+typedef enum {
 
+    NONE = 1,
+    SOLID,
+    LIQUID,
+    HYBRID,
+    JET,
+    DEMONT
+
+}ENGINE_TYPE;
 
 void configureEngine(WEAPON* const weapon) {
+
+    if (weapon->standard[0] == '\0')
+    {
+        printf("\nNije moguce montirati motor s neodredjenim standardom.\n");
+        return;
+    }
 
     unsigned short choice;
     unsigned short valid = 0;
@@ -84,6 +108,8 @@ void configureEngine(WEAPON* const weapon) {
         printf("[4] Hibridni motor\n");
         printf("[5] Mlazni motor\n\n");
 
+        printf("[6] Demontiraj\n\n");
+
         printf("============================================================\n");
         printf("Izbor: ");
 
@@ -97,7 +123,7 @@ void configureEngine(WEAPON* const weapon) {
 
         switch (choice) {
 
-        case 1:
+        case NONE:
             if (strcmp(weapon->standard, "NATO A1") == 0 ||
                 strcmp(weapon->standard, "NATO A2") == 0)
             {
@@ -112,17 +138,23 @@ void configureEngine(WEAPON* const weapon) {
             }
             break;
 
-        case 2:
-            if (strcmp(weapon->standard, "NATO A1") == 0 ||
-                strcmp(weapon->standard, "NATO A2") == 0)
+        case SOLID:
+            if (strcmp(weapon->standard, "NATO A2") == 0)
             {
                 valid = 1;
                 strcpy(weapon->engine.type, "Motor na kruto gorivo");
-                printf("Odretide masu motora [15-50]kg.\n");
+           
                 do
                 {
-                    scanf("%f", &weapon->engine.mass);
-                } while (weapon->engine.mass < 15 || weapon->engine.mass > 50);
+                    CLEAR_CONSOLE();
+                    printf("Odretide masu motora [300-500]kg.\n");
+                    if (scanf("%f", &weapon->engine.mass) != 1) {
+                        printf("Pogreska, unesite broj\n");
+                        clearBuffer();
+                        continue;
+                    }
+                    
+                } while (weapon->engine.mass < 300 || weapon->engine.mass > 500);
             }
             else
             {
@@ -131,13 +163,24 @@ void configureEngine(WEAPON* const weapon) {
             }
             break;
 
-        case 3:
+        case LIQUID:
             if (strcmp(weapon->standard, "NATO A2") == 0 ||
                 strcmp(weapon->standard, "NATO A3") == 0)
             {
                 valid = 1;
                 strcpy(weapon->engine.type, "Motor na tekuce gorivo");
-                weapon->engine.mass = 0;
+
+                do
+                {
+                    CLEAR_CONSOLE();
+                    printf("Odretide masu motora [500-700]kg.\n");
+                    if (scanf("%f", &weapon->engine.mass) != 1) {
+                        printf("Pogreska, unesite broj\n");
+                        clearBuffer();
+                        continue;
+                    }
+
+                } while (weapon->engine.mass < 500 || weapon->engine.mass > 700);
             }
             else
             {
@@ -146,12 +189,23 @@ void configureEngine(WEAPON* const weapon) {
             }
             break;
 
-        case 4:
+        case HYBRID:
             if (strcmp(weapon->standard, "NATO A3") == 0)
             {
                 valid = 1;
                 strcpy(weapon->engine.type, "Hibridni motor");
-                weapon->engine.mass = 0;
+
+                do
+                {
+                    CLEAR_CONSOLE();
+                    printf("Odretide masu motora [500-800]kg.\n");
+                    if (scanf("%f", &weapon->engine.mass) != 1) {
+                        printf("Pogreska, unesite broj\n");
+                        clearBuffer();
+                        continue;
+                    }
+
+                } while (weapon->engine.mass < 500 || weapon->engine.mass > 800);
             }
             else
             {
@@ -160,12 +214,23 @@ void configureEngine(WEAPON* const weapon) {
             }
             break;
 
-        case 5:
+        case JET:
             if (strcmp(weapon->standard, "NATO A3") == 0)
             {
                 valid = 1;
                 strcpy(weapon->engine.type, "Mlazni motor");
-                weapon->engine.mass = 0;
+
+                do
+                {
+                    CLEAR_CONSOLE();
+                    printf("Odretide masu motora [800-1000]kg.\n");
+                    if (scanf("%f", &weapon->engine.mass) != 1) {
+                        printf("Pogreska, unesite broj\n");
+                        clearBuffer();
+                        continue;
+                    }
+
+                } while (weapon->engine.mass < 800 || weapon->engine.mass > 1000);
             }
             else
             {
@@ -174,6 +239,18 @@ void configureEngine(WEAPON* const weapon) {
             }
             break;
 
+        case DEMONT:
+            if (weapon->engine.type[0] != '\0') {
+                strcpy(weapon->engine.type, "\0");
+                weapon->engine.mass = 0;
+                printf("Motor demontiran.\n");
+            }
+            else
+            {
+                printf("Nema se sta demontirat.\n");
+            }
+            return;
+         
         default:
             printf("\nNepoznata opcija. Pokusajte ponovno.\n");
             pause();

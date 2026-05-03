@@ -21,7 +21,8 @@ int factoryMenu() {
     CLEAR_CONSOLE();
 
     static WEAPON tempWeapon;
-  
+
+ 
     printf("============================================================\n");
     printf("          POGON ZA SASTAVLJANJE NAORUZANJA\n");
     printf("============================================================\n\n");
@@ -29,7 +30,7 @@ int factoryMenu() {
     printf("[1] DEFINIRANJE STANDARDA \t\t %s %s \033[0m\n",
         checkColor(tempWeapon.standard),
         tempWeapon.standard[0] == '\0' ? "NIJE DEFINIRANO" : tempWeapon.standard);
-
+ 
     printf("[2] ODABIR POGONSKOG SUSTAVA \t\t %s %s \033[0m\n",
         checkColor(tempWeapon.engine.type),
         tempWeapon.engine.type[0] == '\0' ? "NIJE DEFINIRANO" : tempWeapon.engine.type);

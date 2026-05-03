@@ -47,6 +47,11 @@ void configureEngine(WEAPON* const);
 void sendToStorage();
 
 /*
+* Funkcija za odredjivanje tipa eksploziva.
+*/
+void configureWarhead(WEAPON* const);
+
+/*
 * Vraca boju kao string 
 */
 const char* setColor(const COLOR);
