@@ -37,9 +37,14 @@ void clearBuffer();
 void defineStandard(WEAPON* const);
 
 /*
-* Menu za odredjivanje tipa i mase pogona oruzja.
+* Menu za odredjivanje tipa i mase pogona.
 */
 void configureEngine(WEAPON* const);
+
+/*
+* Menu za odredjivanje tipa i mase eksplozivne glave.
+*/
+void configureWarhead(WEAPON* const weapon);
 
 /*
 * Funkcija za spremanje konstruiranog oruzja u datoteku.
@@ -52,13 +57,39 @@ void sendToStorage();
 void configureWarhead(WEAPON* const);
 
 /*
-* Vraca boju kao string 
+* Vraca boju kao string.
 */
-const char* setColor(const COLOR);
+const char* setColor(const COLOR color);
 
 /*
-* Provjerava da li je string prazan i prema tome odredjuje boju
+* Provjerava da li je uneseni unak broj.
 */
-const char* checkColor(const char*);
+int getChoice(unsigned short* choice);
+
+/*
+* Provjerava da li je string prazan i prema tome odredjuje boju.
+*/
+const char* checkColor(const char* string);
+
+
+/*
+* Omogucava unos mase motora.
+*/
+void inputEngineMass(float* mass, float min, float max);
+
+/*
+* Omogucava unos mase bojeve glave.
+*/
+void inputWarheadMass(float* mass, float min, float max);
+
+/*
+* Funkcija za odredjivanje tipa navodjenja.
+*/
+void configureGuidance(WEAPON* const weapon);
+
+/*
+* Funkcija za provjeru standarda.
+*/
+int isStandardValid(const char* weaponStandard, int engineChoice);
 
 #endif

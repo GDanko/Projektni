@@ -70,12 +70,12 @@ int factoryMenu() {
         break;
 
     case CONFIGURE_WARHEAD:
-        printf("\nwork in progress\n");
+        configureWarhead(&tempWeapon);
         pause();
         break;
 
     case CONFIGURE_GUIDANCE:
-        printf("\nwork in progress\n");
+        configureGuidance(&tempWeapon);
         pause();
         break;
 

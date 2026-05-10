@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="colors.h" />
+    <ClInclude Include="weaponTypes.h" />
     <ClInclude Include="weapons.h" />
     <ClInclude Include="functions.h" />
   </ItemGroup>

@@ -10,7 +10,7 @@ typedef struct {
 
 typedef struct {
 
-    char type[20];
+    char type[30];
     float mass;
 
 } EXPLOSIVE;
@@ -22,7 +22,7 @@ typedef struct {
     char name[20];
     ENGINE engine;
     EXPLOSIVE explosive;
-    char guidanceType[20];
+    char guidanceType[30];
 
 } WEAPON;
 
