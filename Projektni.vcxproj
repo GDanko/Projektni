@@ -127,6 +127,7 @@
     <ClCompile Include="functions.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="mainMenu.c" />
+    <ClCompile Include="storageMenu.c" />
     <ClCompile Include="subMenuFunctions.c" />
   </ItemGroup>
   <ItemGroup>
@@ -136,10 +137,10 @@
     <ClInclude Include="functions.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="storage.bin" />
+    <Text Include="koncepti.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="koncepti.txt" />
+    <None Include="storage.bin" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -30,6 +30,9 @@
     <ClCompile Include="subMenuFunctions.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="storageMenu.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="functions.h">
@@ -46,13 +49,13 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="storage.bin">
-      <Filter>Resource Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="koncepti.txt">
       <Filter>Resource Files</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="storage.bin">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

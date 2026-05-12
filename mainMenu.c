@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include "functions.h"
 
+int numOfWeapons = 0;
+
 typedef enum {
     PROIZVODNJA = 1,
     SKLADISTE,

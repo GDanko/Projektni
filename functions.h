@@ -49,7 +49,17 @@ void configureWarhead(WEAPON* const weapon);
 /*
 * Funkcija za spremanje konstruiranog oruzja u datoteku.
 */
-void sendToStorage();
+void sendToStorage(WEAPON*);
+
+/*
+* Funkcija za otvaranje datoteke.
+*/
+FILE* openFile(const char* mode);
+
+/*
+* Funkcija za kreiranje datoteke.
+*/
+void createFile();
 
 /*
 * Funkcija za odredjivanje tipa eksploziva.

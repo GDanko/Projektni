@@ -12,12 +12,12 @@ typedef enum {
     CONFIGURE_GUIDANCE,
     STORE,
     RESTART,
-    RETURN
+    RETURN = 0
 }MENU_OPTIONS;
 
 
 int factoryMenu() {
-    
+
     CLEAR_CONSOLE();
 
     static WEAPON tempWeapon;
@@ -47,7 +47,7 @@ int factoryMenu() {
     printf("[5] POSALJI U SKLADISTE\n");
     printf("[6] RESTART\n\n");
 
-    printf("[7] POVRATAK U GLAVNI IZBORNIK\n\n");
+    printf("[0] POVRATAK U GLAVNI IZBORNIK\n\n");
 
     printf("============================================================\n");
     printf("Odaberite korak proizvodnje: ");
@@ -80,13 +80,13 @@ int factoryMenu() {
         break;
 
     case STORE:
-        printf("\nwork in progress\n");
+        sendToStorage(&tempWeapon);
         pause();
         break;
 
     case RESTART:
         memset(&tempWeapon, 0, sizeof(WEAPON));
-        printf("\nZbog ostecenja, oruzje je poslano na popravak.\n");
+        printf("\nOruzje je uklonjeno iz proizvodnje.\n");
         pause();
         break;
 

@@ -8,7 +8,6 @@
 #include "colors.h"
 
 extern int numOfWeapons;
-int nextID;
 
 const char* setColor(const COLOR color) {
     static const char* colorCodes[] = {
@@ -33,10 +32,70 @@ const char* checkColor(const char* str) {
 
 
 
-void sendToStorage() {
+void createFile() {
 
-	FILE* fp = fopen("storage.bin", "ab");
+    FILE* fp = fopen("storage.bin", "wb");
+    if (fp == NULL) {
+        CLEAR_CONSOLE();
+        perror("\nGreska pri kreiranju datoteke storage.bin.\n");
+        pause();
+        exit(EXIT_FAILURE);
+    }
 
+    numOfWeapons = 0;
+
+    fwrite(&numOfWeapons, sizeof(int), 1, fp);
+
+    fclose(fp);
+
+}
+
+
+
+FILE* openFile(const char* mode) {
+
+    FILE* fp = fopen("storage.bin", mode);
+    if (fp == NULL) {
+        createFile();
+        fp = fopen("storage.bin", mode);
+        if (fp == NULL) {
+            CLEAR_CONSOLE();
+            perror("\nGreska pri otvaranju datoteke storage.bin.\n");
+            pause();
+            exit(EXIT_FAILURE);
+        }
+    }
+    return fp;
+}
+
+
+
+void sendToStorage(WEAPON* weapon) {
+
+    if (weapon->guidanceType[0] == '\0') {
+        printf("\nNije moguce skladistiti nedovrseno oruzje.\n");
+        return;
+    }
+
+    FILE* fp = openFile("rb+");
+
+    rewind(fp);
+    fread(&numOfWeapons, sizeof(int), 1, fp);
+
+    weapon->id = numOfWeapons;
+
+    fseek(fp, sizeof(int) + numOfWeapons * sizeof(WEAPON), SEEK_SET);
+    fwrite(weapon, sizeof(WEAPON), 1, fp);
+
+    numOfWeapons++;
+ 
+    rewind(fp);
+    fwrite(&numOfWeapons, sizeof(int), 1, fp);
+
+    memset(weapon, 0, sizeof(WEAPON));
+
+    printf("\nOruzje uspijesno poslano u skladiste.\n");
+    fclose(fp);
 }
 
 

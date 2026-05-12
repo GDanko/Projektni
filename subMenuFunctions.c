@@ -321,7 +321,7 @@ void configureGuidance(WEAPON* const weapon) {
             break;
 
         case G_LASER:
-            strcpy(weapon->guidanceType, "Lasersko");
+            strcpy(weapon->guidanceType, "Laser");
             break;
 
         case G_INFRARED:
@@ -329,7 +329,7 @@ void configureGuidance(WEAPON* const weapon) {
             break;
 
         case G_RADAR:
-            strcpy(weapon->guidanceType, "Radarsko");
+            strcpy(weapon->guidanceType, "Radar");
             break;
 
         default:
