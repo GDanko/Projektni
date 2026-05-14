@@ -129,7 +129,7 @@ void configureEngine(WEAPON* const weapon) {
 
         switch (choice) {
         case E_NONE:
-            strcpy(weapon->engine.type, "---");
+            strcpy(weapon->engine.type, "NONE");
             weapon->engine.mass = 0;
             break;
 
@@ -313,7 +313,7 @@ void configureGuidance(WEAPON* const weapon) {
 
         switch (choice) {
         case G_NONE:
-            strcpy(weapon->guidanceType, "---");
+            strcpy(weapon->guidanceType, "NONE");
             break;
 
         case G_INERTIAL:
