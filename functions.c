@@ -8,6 +8,7 @@
 #include "colors.h"
 
 extern int numOfWeapons;
+extern WEAPON tempWeapon;
 
 const char* setColor(const COLOR color) {
     static const char* colorCodes[] = {
@@ -68,6 +69,56 @@ FILE* openFile(const char* mode) {
     return fp;
 }
 
+void printStorage() {
+
+	FILE* fp = openFile("rb");
+	//static WEAPON tempWeapon = { 0 };
+
+	rewind(fp);
+	fread(&numOfWeapons, sizeof(int), 1, fp);
+	putchar('\n');
+
+	for (int i = 0; i < numOfWeapons; i++)
+	{
+		memset(&tempWeapon, 0, sizeof(WEAPON));
+		fseek(fp, sizeof(int) + i * sizeof(WEAPON), SEEK_SET);
+		fread(&tempWeapon, numOfWeapons * sizeof(WEAPON), numOfWeapons, fp);
+
+		printf("ID: %d\tSTANDARD: %s\tMOTOR: %s - MASA: %.2f\tBOJNA GLAVA: %s - MASA: %.2f\tNAVODJENJE: %s\n",
+			tempWeapon.id,
+			tempWeapon.standard,
+			tempWeapon.engine.type,
+			tempWeapon.engine.mass,
+			tempWeapon.explosive.type,
+			tempWeapon.explosive.mass,
+			tempWeapon.guidanceType
+		);
+	}
+
+	putchar('\n');
+	memset(&tempWeapon, 0, sizeof(WEAPON));
+	fclose(fp);
+}
+
+
+
+
+void returnToFactory() {
+
+	FILE* fp = openFile("rb");
+	int m;
+
+	printf("Odaberite ID oruzja koje zelite vratiti u proizvodnju.\n");
+	scanf("%d", &m);
+
+
+	fseek(fp, sizeof(int) + sizeof(WEAPON) * m, SEEK_SET);
+	fread(&tempWeapon, sizeof(WEAPON), 1, fp);
+
+	printf("Orzuje vraceno u proizvodnju.\n");
+	fclose(fp);
+}
+
 
 
 void sendToStorage(WEAPON* weapon) {
@@ -78,6 +129,7 @@ void sendToStorage(WEAPON* weapon) {
     }
 
     FILE* fp = openFile("rb+");
+
 
     rewind(fp);
     fread(&numOfWeapons, sizeof(int), 1, fp);
