@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include "functions.h"
 
-int numOfWeapons = 0;
 
 typedef enum {
     PROIZVODNJA = 1,
@@ -42,8 +41,7 @@ int mainMenu() {
  
       case SKLADISTE:
           while (condition) {
-              printf("\nwork in progress\n");
-              pause();
+			  condition = storageMenu();
               break;
           }
           break;
