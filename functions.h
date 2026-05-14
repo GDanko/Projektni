@@ -16,6 +16,13 @@
 */
 int mainMenu();
 
+int storageMenu();
+
+void printStorage();
+
+
+void returnToFactory();
+
 /*
 * Otvara izbornik za konstrukciju naoruzanja.
 */
