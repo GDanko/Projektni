@@ -15,12 +15,13 @@ typedef enum {
     RETURN = 0
 }MENU_OPTIONS;
 
+WEAPON tempWeapon;
 
 int factoryMenu() {
 
     CLEAR_CONSOLE();
 
-    static WEAPON tempWeapon;
+ 
 
  
     printf("============================================================\n");
