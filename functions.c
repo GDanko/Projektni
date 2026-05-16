@@ -69,10 +69,16 @@ FILE* openFile(const char* mode) {
     return fp;
 }
 
+
+
+
 void printStorage() {
 
+    CLEAR_CONSOLE();
+
 	FILE* fp = openFile("rb");
-	//static WEAPON tempWeapon = { 0 };
+
+    WEAPON weapon = {0};
 
 	rewind(fp);
 	fread(&numOfWeapons, sizeof(int), 1, fp);
@@ -80,23 +86,21 @@ void printStorage() {
 
 	for (int i = 0; i < numOfWeapons; i++)
 	{
-		memset(&tempWeapon, 0, sizeof(WEAPON));
 		fseek(fp, sizeof(int) + i * sizeof(WEAPON), SEEK_SET);
-		fread(&tempWeapon, numOfWeapons * sizeof(WEAPON), numOfWeapons, fp);
+		fread(&weapon, sizeof(WEAPON), 1, fp);
 
-		printf("ID: %d\tSTANDARD: %s\tMOTOR: %s - MASA: %.2f\tBOJNA GLAVA: %s - MASA: %.2f\tNAVODJENJE: %s\n",
-			tempWeapon.id,
-			tempWeapon.standard,
-			tempWeapon.engine.type,
-			tempWeapon.engine.mass,
-			tempWeapon.explosive.type,
-			tempWeapon.explosive.mass,
-			tempWeapon.guidanceType
+        printf("============================================================\n");
+		printf("ID: %d\nSTANDARD: %s\nMOTOR: %s - MASA: %.2f kg\nBOJNA GLAVA: %s - MASA: %.2f kg\nNAVODJENJE: %s\n",
+            weapon.id,
+            weapon.standard,
+            weapon.engine.type,
+            weapon.engine.mass,
+            weapon.explosive.type,
+            weapon.explosive.mass,
+            weapon.guidanceType
 		);
 	}
-
-	putchar('\n');
-	memset(&tempWeapon, 0, sizeof(WEAPON));
+    printf("============================================================\n\n");
 	fclose(fp);
 }
 
@@ -105,18 +109,51 @@ void printStorage() {
 
 void returnToFactory() {
 
-	FILE* fp = openFile("rb");
-	int m;
+    if (tempWeapon.standard[0] != '\0') {
+        printf("\n%s[GRESKA] Nije moguce vratiti oruzje u proizvodnju jer je traka zauzeta.\n", setColor(RED));
+        printf("Dovrsite ili resetirajte trenutno oruzje u tvornici.%s\n\n", setColor(CLEAR));
+        return;
+    }
 
-	printf("Odaberite ID oruzja koje zelite vratiti u proizvodnju.\n");
-	scanf("%d", &m);
+    FILE* fp = openFile("rb");
 
+    int targetId;
 
-	fseek(fp, sizeof(int) + sizeof(WEAPON) * m, SEEK_SET);
-	fread(&tempWeapon, sizeof(WEAPON), 1, fp);
+    printStorage();
 
-	printf("Orzuje vraceno u proizvodnju.\n");
-	fclose(fp);
+    printf("Odaberite ID oruzja koje zelite vratiti u proizvodnju.\n");
+    if (scanf("%d", &targetId) != 1) {
+        clearBuffer();
+        fclose(fp);
+        return;
+    }
+    clearBuffer();
+
+    rewind(fp);
+    fread(&numOfWeapons, sizeof(int), 1, fp);
+
+    WEAPON currentWeapon;
+    int found = 0;
+
+    for (int i = 0; i < numOfWeapons; i++) {
+        fseek(fp, sizeof(int) + i * sizeof(WEAPON), SEEK_SET);
+        fread(&currentWeapon, sizeof(WEAPON), 1, fp);
+
+        if (currentWeapon.id == targetId) {
+            tempWeapon = currentWeapon;
+            found = 1;
+            break;
+        }
+    }
+
+    if (found) {
+        printf("Oruzje s ID-em %d uspjesno vraceno u proizvodnju.\n", targetId);
+    }
+    else {
+        printf("Oruzje s ID-em %d nije pronadjeno u skladistu!\n", targetId);
+    }
+
+    fclose(fp);
 }
 
 
@@ -130,21 +167,45 @@ void sendToStorage(WEAPON* weapon) {
 
     FILE* fp = openFile("rb+");
 
+    if (weapon->id == 0) {
 
-    rewind(fp);
-    fread(&numOfWeapons, sizeof(int), 1, fp);
+        rewind(fp);
+        fread(&numOfWeapons, sizeof(int), 1, fp);
 
-    weapon->id = numOfWeapons;
 
-    fseek(fp, sizeof(int) + numOfWeapons * sizeof(WEAPON), SEEK_SET);
-    fwrite(weapon, sizeof(WEAPON), 1, fp);
+        weapon->id = numOfWeapons + 1;
 
-    numOfWeapons++;
- 
-    rewind(fp);
-    fwrite(&numOfWeapons, sizeof(int), 1, fp);
+        fseek(fp, sizeof(int) + numOfWeapons * sizeof(WEAPON), SEEK_SET);
+        fwrite(weapon, sizeof(WEAPON), 1, fp);
+
+        numOfWeapons++;
+
+
+        rewind(fp);
+        fwrite(&numOfWeapons, sizeof(int), 1, fp);
+    }
+    else {
+
+        WEAPON checkWeapon;
+
+        rewind(fp);
+        fread(&numOfWeapons, sizeof(int), 1, fp);
+
+        for (int i = 0; i < numOfWeapons; i++) {
+            fseek(fp, sizeof(int) + i * sizeof(WEAPON), SEEK_SET);
+            fread(&checkWeapon, sizeof(WEAPON), 1, fp);
+
+            if (checkWeapon.id == weapon->id) {
+
+                fseek(fp, sizeof(int) + i * sizeof(WEAPON), SEEK_SET);
+                fwrite(weapon, sizeof(WEAPON), 1, fp);
+                break;
+            }
+        }
+    }
 
     memset(weapon, 0, sizeof(WEAPON));
+
 
     printf("\nOruzje uspijesno poslano u skladiste.\n");
     fclose(fp);
@@ -154,7 +215,7 @@ void sendToStorage(WEAPON* weapon) {
 
 void pause() {
 
-    printf("%sPritisnite bilo koju tipku za nastavak...%s\n", setColor(RED), setColor(CLEAR));
+    printf("\n%sPritisnite bilo koju tipku za nastavak...%s\n", setColor(RED), setColor(CLEAR));
     _getch();
 
 }
