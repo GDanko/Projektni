@@ -13,12 +13,12 @@ typedef enum {
 }MENU_OPTIONS;
 
 int numOfWeapons = 0;
+extern WEAPON tempWeapon;
 
 int storageMenu() {
 
 	CLEAR_CONSOLE();
 
-	static WEAPON tempWeapon;
 
 
 	printf("============================================================\n");
@@ -26,6 +26,7 @@ int storageMenu() {
 	printf("============================================================\n\n");
 
 	printf("[1] ISPISI ORUZJE\n");
+	printf("[2] VRATI U PROIZVODNJU\n\n");
 
 	printf("[0] POVRATAK U GLAVNI IZBORNIK\n\n");
 
@@ -47,7 +48,7 @@ int storageMenu() {
 	case RETURN_STORAGE:
 		returnToFactory();
 		pause();
-		break;
+		return 2;
 
 	case RETURN:
 		return 0;
