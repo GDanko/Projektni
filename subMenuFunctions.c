@@ -1,4 +1,4 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdlib.h>
 #include <string.h>
 #include "weapons.h"
@@ -12,7 +12,7 @@ void defineStandard(WEAPON* const weapon) {
 
     if (weapon->engine.type[0] != '\0')
     {
-        printf("\nNije moguce mijenjati standard s namontiranim djelovima.\n");
+        printf("\n%s[GRESKA] Nije moguce mijenjati standard s namontiranim djelovima.%s\n", setColor(RED), setColor(CLEAR));
         return;
     }
 
@@ -69,12 +69,12 @@ void configureEngine(WEAPON* const weapon) {
 
     if (weapon->standard[0] == '\0')
     {
-        printf("\nNije moguce montirati motor s neodredjenim standardom.\n");
+        printf("\n%s[GRESKA] Nije moguce montirati motor s neodredjenim standardom.%s\n", setColor(RED), setColor(CLEAR));
         return;
     }
 
     if (weapon->explosive.type[0] != '\0') {
-        printf("\nNije moguce mijenjati motor s namontiranom bojevom glavom.\n");
+        printf("\n%s[GRESKA] Nije moguce mijenjati motor s namontiranom bojevom glavom.%s\n", setColor(RED), setColor(CLEAR));
         return;
     }
 
@@ -105,7 +105,7 @@ void configureEngine(WEAPON* const weapon) {
 
         if (choice == E_DEMONT) {
             if (weapon->explosive.type[0] != '\0') {
-                printf("nije moguce demontirati motor s namontiranom bojevom glavom.\n");
+                printf("\n%s[GRESKA] Nije moguce demontirati motor s namontiranom bojevom glavom.%s\n", setColor(RED), setColor(CLEAR));
                 return;
             }
             else if (weapon->engine.type[0] != '\0') {   
@@ -169,12 +169,12 @@ void configureWarhead(WEAPON* const weapon) {
 
     if (weapon->engine.type[0] == '\0')
     {
-        printf("\nNije moguce montirati bojnu glavu bez namontiranog motora.\n");
+        printf("\n%s[GRESKA] Nije moguce montirati bojnu glavu bez namontiranog motora.%s\n", setColor(RED), setColor(CLEAR));
         return;
     }
 
     if (weapon->guidanceType[0] != '\0') {
-        printf("\nNije moguce mijenjati bojevu glavu s namontiranim sustavom navodjenja.\n");
+        printf("\n%s[GRESKA] Nije moguce mijenjati bojevu glavu s namontiranim sustavom navodjenja.%s\n", setColor(RED), setColor(CLEAR));
         return;
     }
 
@@ -216,7 +216,7 @@ void configureWarhead(WEAPON* const weapon) {
         }
 
         if (!isStandardValid(weapon->standard, choice)) {
-            printf("\nNeodgovarajuci standard za tip bojeve glave. Pokusajte ponovno.\n");
+            printf("\n%s[GRESKA] Neodgovarajuci standard za tip bojeve glave. Pokusajte ponovno.%s\n", setColor(RED), setColor(CLEAR));
             pause();
             continue;
         }
@@ -264,7 +264,7 @@ void configureGuidance(WEAPON* const weapon) {
 
     if (weapon->explosive.type[0] == '\0')
     {
-        printf("\nNije moguce montirati sustav navodjenja bez namontirane bojne glave.\n");
+        printf("\n%s[GRESKA] Nije moguce montirati sustav navodjenja bez namontirane bojne glave.%s\n", setColor(RED), setColor(CLEAR));
         return;
     }
 
@@ -305,7 +305,7 @@ void configureGuidance(WEAPON* const weapon) {
         }
 
         if (!isStandardValid(weapon->standard, choice)) {
-            printf("\nNeodgovarajuci standard za tip navodjenja Pokusajte ponovno.\n");
+            printf("\n%s[GRESKA] Neodgovarajuci standard za tip navodjenja, Pokusajte ponovno.%s\n", setColor(RED), setColor(CLEAR));
             pause();
             continue;
         }
