@@ -39,12 +39,19 @@ int mainMenu() {
         }
         break;
  
-      case SKLADISTE:
-          while (condition) {
-			  condition = storageMenu();
-              break;
-          }
-          break;
+    case SKLADISTE:
+        while (condition) {
+            condition = storageMenu();
+
+            if (condition == 2) {
+                int factoryCondition = 1;
+                while (factoryCondition) {
+                    factoryCondition = factoryMenu();
+                }
+                break;
+            }
+        }
+        break;
 
       case ISPORUKA:
           while (condition) {
