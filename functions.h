@@ -20,6 +20,7 @@ int storageMenu();
 
 void printStorage();
 
+void readWeapons(WEAPON**, FILE*);
 
 void returnToFactory();
 
