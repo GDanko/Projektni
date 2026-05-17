@@ -230,7 +230,7 @@ void configureWarhead(WEAPON* const weapon) {
 
         case W_ARMOR_PIERCING:
             strcpy(weapon->explosive.type, "Protu-oklopna");
-            weapon->explosive.mass = 0;
+            inputWarheadMass(&weapon->explosive.mass, 50, 100);
             break;
 
         case W_FRAGMENTATION:
