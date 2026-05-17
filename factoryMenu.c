@@ -21,12 +21,14 @@ int factoryMenu() {
 
     CLEAR_CONSOLE();
 
- 
+    
 
  
     printf("============================================================\n");
     printf("          POGON ZA SASTAVLJANJE NAORUZANJA\n");
     printf("============================================================\n\n");
+
+    printf("NACIN RADA: %s\n\n", tempWeapon.id == 0 ? "KREAIRANJE NOVOG ORUZJA" : "AZURIRANJE POSTOJECEG ORUZJA");
 
     printf("[1] DEFINIRANJE STANDARDA \t\t %s %s \033[0m\n",
         checkColor(tempWeapon.standard),
@@ -44,9 +46,16 @@ int factoryMenu() {
         checkColor(tempWeapon.guidanceType),
         tempWeapon.guidanceType[0] == '\0' ? "NIJE DEFINIRANO" : tempWeapon.guidanceType);
 
-    
-    printf("[5] POSALJI U SKLADISTE\n");
-    printf("[6] RESTART\n\n");
+    if (tempWeapon.id != 0) {
+        printf("[5] VRATI U SKLADISTE\n");
+        printf("[5] UKLONI ORUZJE IZ SKLADISTA\n\n");
+    }
+    else
+    {
+        printf("[5] POSALJI U SKLADISTE\n");
+        printf("[6] RESTART\n\n");
+    }
+   
 
     printf("[0] POVRATAK U GLAVNI IZBORNIK\n\n");
 
@@ -86,8 +95,18 @@ int factoryMenu() {
         break;
 
     case RESTART:
-        memset(&tempWeapon, 0, sizeof(WEAPON));
-        printf("\nOruzje je uklonjeno iz proizvodnje.\n");
+        if (tempWeapon.id == 0)
+        {
+            memset(&tempWeapon, 0, sizeof(WEAPON));
+            printf("\nOruzje je uklonjeno iz proizvodnje.\n");
+        }
+        else
+        {
+            //funkcija za uklanjanje oruzja iz skladista
+            memset(&tempWeapon, 0, sizeof(WEAPON));
+            printf("\nOruzje je uklonjeno iz skladista.\n");
+        }
+      
         pause();
         break;
 
