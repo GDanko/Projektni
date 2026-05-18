@@ -9,6 +9,7 @@
 
 extern int numOfWeapons;
 extern WEAPON tempWeapon;
+int nextID;
 
 const char* setColor(const COLOR color) {
     static const char* colorCodes[] = {
@@ -44,6 +45,7 @@ void createFile() {
     }
 
     numOfWeapons = 0;
+    nextID = 0;
 
     fwrite(&numOfWeapons, sizeof(int), 1, fp);
 
@@ -129,7 +131,7 @@ void printStorage() {
 
 
 
-void returnToFactory() {
+int returnToFactory() {
 
     if (tempWeapon.standard[0] != '\0') {
         printf("\n%s[GRESKA] Nije moguce vratiti oruzje u proizvodnju jer je traka zauzeta.\n", setColor(RED));
@@ -177,13 +179,88 @@ void returnToFactory() {
 
     if (found) {
         printf("Oruzje s ID-em %d uspjesno vraceno u proizvodnju.\n", targetId);
+        fclose(fp);
+        return 1;
     }
     else {
         printf("Oruzje s ID-em %d nije pronadjeno u skladistu.\n", targetId);
+        fclose(fp);
+        return 0;
+    }
+
+}
+
+
+
+void deleteWeapon() {
+
+    FILE* fp = openFile("rb+");
+
+    rewind(fp);
+    fread(&numOfWeapons, sizeof(int), 1, fp);
+
+    printStorage();
+
+    int targetId;
+    printf("\nOdaberite ID oruzja koje zelite ukloniti iz skladista: ");
+    if (scanf("%d", &targetId) != 1) {
+        clearBuffer();
+        fclose(fp);
+        return;
+    }
+    clearBuffer();
+
+    WEAPON* arrayWeapons = NULL;
+    readWeapons(&arrayWeapons, fp);
+    fclose(fp);
+
+    if (arrayWeapons == NULL) {
+        printf("\nNema oruzja u skladistu.\n");
+        return 0;
+    }
+
+    int foundIndex = -1;
+    for (int i = 0; i < numOfWeapons; i++) {
+        if ((arrayWeapons + i)->id == targetId) {
+            foundIndex = i;
+            break;
+        }
+    }
+
+    if (foundIndex != -1) {
+        for (int i = foundIndex; i < numOfWeapons - 1; i++) {
+            if (arrayWeapons[i + 1].standard[0] == '\0') {
+                memset(&arrayWeapons[i], 0, sizeof(WEAPON));
+            }
+            else
+            {
+                arrayWeapons[i] = arrayWeapons[i + 1];
+            }
+            
+        }
+
+        numOfWeapons--;
+
+        fp = openFile("rb+");
+        rewind(fp);
+        fwrite(&numOfWeapons, sizeof(int), 1, fp);
+
+
+        fseek(fp, sizeof(int), SEEK_SET);
+            fwrite(arrayWeapons, sizeof(WEAPON), numOfWeapons, fp);
+
+
+        printf("Oruzje s ID-em %d uspjesno uklonjeno iz skladista.\n", targetId);
+
+    }
+    else {
+        printf("Oruzje s ID-em %d nije pronadjeno u skladistu.\n", targetId);;
     }
 
     fclose(fp);
+    free(arrayWeapons);
 }
+
 
 
 
@@ -202,12 +279,13 @@ void sendToStorage(WEAPON* weapon) {
         fread(&numOfWeapons, sizeof(int), 1, fp);
 
 
-        weapon->id = numOfWeapons + 1;
+        weapon->id = nextID + 1;
 
         fseek(fp, sizeof(int) + numOfWeapons * sizeof(WEAPON), SEEK_SET);
         fwrite(weapon, sizeof(WEAPON), 1, fp);
 
         numOfWeapons++;
+        nextID++;
 
         rewind(fp);
         fwrite(&numOfWeapons, sizeof(int), 1, fp);
@@ -236,8 +314,6 @@ void sendToStorage(WEAPON* weapon) {
 
     memset(weapon, 0, sizeof(WEAPON));
 
-
-   
     fclose(fp);
 }
 
