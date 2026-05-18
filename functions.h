@@ -20,9 +20,11 @@ int storageMenu();
 
 void printStorage();
 
+void deleteWeapon();
+
 void readWeapons(WEAPON**, FILE*);
 
-void returnToFactory();
+int returnToFactory();
 
 /*
 * Otvara izbornik za konstrukciju naoruzanja.
